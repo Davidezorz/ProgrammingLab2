@@ -5,34 +5,6 @@ class ExamException(Exception):
     pass
 
 
-#   tempo            passeggeri mensili /1000
-# anno-mese                 int 
-
-
-#Vogliamo leggere questo tipo di dati,
-#calcolare la variazione media nel numero di passeggeri per ogni mese
-#per un dato intervallo di anni
-
-
-#   imput : range anni [int, > 1]
-#   imput : file csv
-    #   anno      -      mese,         numero
-    #   int              int            int
-    #  >  1900         tra 01 e 12
-   
-    # conversione in int neccessaria
-
-
-#______________________________________________________________
-
-
-
-    
-#La serie temporale nel file CSV è da considerare sempre ordinata, 
-
-#I valori di che leggete dal file CSV sono da aspettarsi di tipo intero positivo. Un valore non numerico, oppure vuoto o nullo o negativo non deve essere accettato, 
-#ma tutto deve procedere comunque senza alzare eccezioni.
-
 class CSVTimeSeriesFile():
 
     def __init__(self, name):
