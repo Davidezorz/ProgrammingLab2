@@ -1,4 +1,3 @@
-
 #esame 04/02/2022
 
 class ExamException(Exception):
