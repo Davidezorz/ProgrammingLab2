@@ -17,12 +17,17 @@ def check_list (lista, f):
         mese_prima=None
 
         for row in lista:
+            #controllo che ogni riga abbia una data e un numero
             if f == 0:
                 try:
                     row[1]=int(row[1]) 
                     anno_mese=row[0].split('-')
                     anno=int(anno_mese[0])
-                    mese=int(anno_mese[1])                 
+                    mese=int(anno_mese[1])
+                    #tolgo elementi in eccesso
+                    if len(row) > 2:
+                        row = row[0]
+                        row.append(row[1])          
                 except:
                     continue
             elif f == 1:
@@ -39,7 +44,7 @@ def check_list (lista, f):
             #il mese è un mese, non ci sono altri elementi, come il giorno, nella data
             if len(anno_mese)>2 or mese<1 or mese>12:
                 continue
-                
+            #controllo ordine data
             #prim anno
             if anno_prima==None:
                 anno_prima=anno
@@ -59,18 +64,15 @@ def check_list (lista, f):
                     raise ExamException('non-conscutive date: {}'.format(row))
 
             result.append(row)
-    
             
     return result
 
 
-
+#funzione che mette None dove non è definito un valore nella lista
 def fill (lista):
     if isinstance(lista, list) == False:
         raise ExamException('lista must be a list in fill function')
-    elif len(lista) < 2:
-        raise ExamException('lenght of lista must at least 2 in fill function')
-    elif lista != check_list(time_series, 1):
+    elif lista != check_list(lista, 1):
         raise ExamException('in "fill" function lista element must be list returned by get_data()') 
     else:
         b = lista[-1]
@@ -132,9 +134,7 @@ def fill (lista):
     return result
 
 
-#---------------------------------------------------------------------------
-# funzioni e neccessarie per l'esame
-#---------------------------------------------------------------------------
+#-----------------------------------------------------------------
 
 class CSVTimeSeriesFile():
 
@@ -178,6 +178,8 @@ def compute_avg_monthly_difference(time_series, first_year, last_year):
     #first_year, last_year str
     if isinstance(first_year, str)==False or isinstance(first_year, str)==False:
         raise ExamException('first_year and last_year are not string')
+    elif time_series != check_list(time_series, 1):
+        raise ExamException('in "compute_avg_monthly_difference" time_series element must be list returned by get_data()')
     else:
         try:
             a = int(first_year)
@@ -187,13 +189,12 @@ def compute_avg_monthly_difference(time_series, first_year, last_year):
         if a >= b:
             raise ExamException('first_year >= last_year')
     
-    #range corretto di anni
+    #controllo range corretto di anni
     is_inside_f = False
     is_inside_l = False
-
     #salvo il primo anno del file
     first_in_history = None
-    
+
     for line in time_series:
         data = line[0].split('-')
         if first_in_history == None:
@@ -205,15 +206,11 @@ def compute_avg_monthly_difference(time_series, first_year, last_year):
 
     if is_inside_f == False or is_inside_l == False:
         raise ExamException('Incorrect ragne of year')
-    elif time_series != check_list(time_series, 1):
-        raise ExamException('in "compute_avg_monthly_difference" time_series element must be list returned by get_data()')    
     
     else:
         lista = fill(time_series)
-
         for line in lista:
-            print(line)
-        
+            print (line)
         #inizio calcolo della media
         result = []
         n = b - a
@@ -242,19 +239,18 @@ def compute_avg_monthly_difference(time_series, first_year, last_year):
     return result
 
 
-
-
-    
-
+ 
+"""
 mio_file = CSVTimeSeriesFile(name='data.csv')
 print('Nome del file: "{}"'.format(mio_file.name))
 
 time_series = mio_file.get_data()
 
-for line in time_series:
-   print (line)
+#for line in time_series:
+#   print (line)
 
 first_year = '1949'
 last_year = '1952'
 lista = compute_avg_monthly_difference(time_series, first_year, last_year)
 print (lista)
+"""
