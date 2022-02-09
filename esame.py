@@ -1,4 +1,4 @@
-#esame 10/02/2022
+#esame 10-02-2022
 #versione 2
 
 class ExamException(Exception):
