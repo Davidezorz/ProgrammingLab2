@@ -44,6 +44,8 @@ def check_list (lista, f):
             if anno_prima==None:
                 anno_prima=anno
                 mese_prima=mese
+            elif anno_prima +1 < anno:
+                raise ExamException('one year has no value')
             else:
                 if anno_prima<anno:
                     anno_prima=anno
@@ -57,6 +59,7 @@ def check_list (lista, f):
                     raise ExamException('non-conscutive date: {}'.format(row))
 
             result.append(row)
+    
             
     return result
 
@@ -136,7 +139,6 @@ def fill (lista):
 class CSVTimeSeriesFile():
 
     def __init__(self, name):
-        
         self.can_read = True
 
         if isinstance(name, str)==True:
@@ -150,7 +152,7 @@ class CSVTimeSeriesFile():
         except:
             self.can_read = False
     
-
+    
 
     def get_data(self):
         
@@ -253,6 +255,6 @@ for line in time_series:
    print (line)
 
 first_year = '1949'
-last_year = '1951'
+last_year = '1952'
 lista = compute_avg_monthly_difference(time_series, first_year, last_year)
 print (lista)
