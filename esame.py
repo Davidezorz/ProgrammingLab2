@@ -39,6 +39,8 @@ def check_list (lista, f):
                     mese=int(anno_mese[1])                 
                 except:
                     raise ExamException('in "compute_avg_monthly_difference" time_series element must be list returned by get_data()')
+            elif row[1] <0:
+                continue
             else:
                 raise ExamException('wrong value of f')
             #il mese è un mese, non ci sono altri elementi, come il giorno, nella data
