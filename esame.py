@@ -129,7 +129,6 @@ def fill (lista):
                 if len(month_data) == 12:
                     result.append(month_data)
                     month_data = []
-    
     return result
 
 
@@ -227,5 +226,4 @@ def compute_avg_monthly_difference(time_series, first_year, last_year):
             else:
                 media = summ/counter
             result.append(media)
-
     return result
