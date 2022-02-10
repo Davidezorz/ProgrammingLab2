@@ -64,7 +64,6 @@ def check_list (lista, f):
                     raise ExamException('non-conscutive date: {}'.format(row))
 
             result.append(row)
-            
     return result
 
 
@@ -158,7 +157,6 @@ class CSVTimeSeriesFile():
         
         if self.can_read == False:
             raise ExamException ('file cannot be open')
-
         else:
             lista = []
             my_file = open(self.name, 'r')
@@ -188,7 +186,6 @@ def compute_avg_monthly_difference(time_series, first_year, last_year):
             raise ExamException('first_year and last_year are not convertible to int')
         if a >= b:
             raise ExamException('first_year >= last_year')
-    
     #controllo range corretto di anni
     is_inside_f = False
     is_inside_l = False
@@ -205,15 +202,13 @@ def compute_avg_monthly_difference(time_series, first_year, last_year):
             is_inside_l = True
 
     if is_inside_f == False or is_inside_l == False:
-        raise ExamException('Incorrect ragne of year')
-    
+        raise ExamException('Incorrect range of year')
     else:
         lista = fill(time_series)
         #inizio calcolo della media
         result = []
         n = b - a
         l = a - first_in_history
-        #per il None
         for i in range(12):
             counter = 0
             summ = 0
@@ -231,24 +226,6 @@ def compute_avg_monthly_difference(time_series, first_year, last_year):
                 media = 0
             else:
                 media = summ/counter
-                
             result.append(media)
 
     return result
-
-
- 
-"""
-mio_file = CSVTimeSeriesFile(name='data.csv')
-print('Nome del file: "{}"'.format(mio_file.name))
-
-time_series = mio_file.get_data()
-
-#for line in time_series:
-#   print (line)
-
-first_year = '1949'
-last_year = '1952'
-lista = compute_avg_monthly_difference(time_series, first_year, last_year)
-print (lista)
-"""
