@@ -209,8 +209,6 @@ def compute_avg_monthly_difference(time_series, first_year, last_year):
     
     else:
         lista = fill(time_series)
-        for line in lista:
-            print (line)
         #inizio calcolo della media
         result = []
         n = b - a
